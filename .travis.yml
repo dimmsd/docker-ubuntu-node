@@ -1,0 +1,43 @@
+sudo: required
+language: ruby
+services: docker
+env:
+  global:
+  - DOCKER_COMPOSE_VERSION=1.18.0
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - DUSER=dimmsd
+  - REPO="dimmsd/ubuntu-node"
+  - NODE_IMAGE="ubuntu-node"
+  - MAIN_DOMAIN=example.loc
+  - UBUNTU_VERSION=16.04
+  - TIMEZONE=Europe/Moscow
+  - OWN_USER=dimm
+  - OWN_UID=1000
+  - OWN_GID=1000
+  - NODE_VERSION=node
+  - NVM_VERSION=0.34.0
+  - NODEIP=172.50.0.100
+  - SUBNET=172.50.0.0/24
+  - TEST_A=0.1
+before_install:
+- sudo apt update -y
+- sudo apt install --only-upgrade docker-ce -y
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+- env > .env
+install:
+- make build
+- make install-node
+- make install-demo
+- make up
+script:
+- docker images
+- docker ps | grep -q node-$MAIN_DOMAIN
+- make check-demo | grep -q 'Hello World'
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=$UBUNTU_VERSION
+- docker push $REPO:$TAG
