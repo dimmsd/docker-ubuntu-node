@@ -1,0 +1,35 @@
+version: '2.2'
+services:
+
+  node:
+    build:
+      context: ./node
+      dockerfile: ./Dockerfile
+      args:
+        UBUNTU_VERSION: ${UBUNTU_VERSION}
+        COMMIT: ${COMMIT}
+    image: dimmsd/${NODE_IMAGE}:${UBUNTU_VERSION}
+    container_name: node-${MAIN_DOMAIN}
+    environment:
+      - MAIN_DOMAIN=${MAIN_DOMAIN}
+      - TIMEZONE=${TIMEZONE}
+      - OWN_USER=${OWN_USER}
+      - OWN_GID=${OWN_GID}
+      - OWN_UID=${OWN_UID}
+      - NODE_SERVICE="1"
+    volumes:
+      - ./www:/var/www
+      - ./utils:/tmp/utils
+      - ./node-user:/home/${OWN_USER}
+    networks:
+      test_demo:
+        ipv4_address: ${NODEIP}
+
+networks:
+  test_demo:
+    driver: bridge
+    name: ${MAIN_DOMAIN}
+    ipam:
+      config:
+      -
+        subnet: ${SUBNET}
