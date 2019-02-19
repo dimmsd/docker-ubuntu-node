@@ -25,10 +25,10 @@ then
 fi
 fi
 
-if [ ! -z "$NODE_SERVICE" ]
+if [ ! -z "$NO_DAEMON" ]
 then
-    sudo -i -u $OWN_USER /tmp/utils/node-service.bash
-else
     exec /bin/bash
+else
+    sudo -i -u $OWN_USER /tmp/utils/node-service.bash
 fi
 

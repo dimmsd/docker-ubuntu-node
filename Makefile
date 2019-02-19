@@ -39,7 +39,7 @@ config-test:
 build:
 	@docker-compose build
 up:
-	@docker-compose up -d
+	@docker-compose up -d --build
 down:
 	@docker-compose down
 logs:
@@ -49,7 +49,7 @@ exec-node:
 check-version:
 	@./utils/check-version.sh docker-ubuntu-node node-$(MAIN_DOMAIN) dimmsd/ubuntu-node:${UBUNTU_VERSION}
 check-demo:
-	@docker exec -it node-$(MAIN_DOMAIN) /tmp/utils/node/demo-check.sh
+	@docker exec -u $(OWN_USER) -it node-$(MAIN_DOMAIN) /tmp/utils_node/demo-check.sh
 run:
 	@docker run --name node-$(MAIN_DOMAIN) \
                  --env TIMEZONE=$(TIMEZONE) \
@@ -58,10 +58,11 @@ run:
                  --env OWN_USER=$(OWN_USER) \
                  --env NVM_VERSION=$(NVM_VERSION) \
                  --env NODE_VERSION=$(NODE_VERSION) \
+                 --env NO_DAEMON=1 \
                  -v $(PWD)/www/node:/var/www/node \
                  -v $(PWD)/utils:/tmp/utils \
                  -v $(PWD)/node-user:/home/$(OWN_USER) \
-                 -td dimmsd/$(NODE_IMAGE):$(UBUNTU_VERSION)
+                 -td $(NODE_IMAGE):$(UBUNTU_VERSION)
 	@sleep 1
 install-node-1:
 	@docker exec -u $(OWN_USER) -it node-$(MAIN_DOMAIN) /tmp/utils_node/install-nvm.sh || true
@@ -69,9 +70,6 @@ install-node-1:
 	@docker stop node-$(MAIN_DOMAIN) || true && docker rm node-$(MAIN_DOMAIN) || true
 install-demo-1:
 	@docker exec -u $(OWN_USER) -it node-$(MAIN_DOMAIN) /tmp/utils_node/demo-install.bash || true
-	@docker stop node-$(MAIN_DOMAIN) || true && docker rm node-$(MAIN_DOMAIN) || true
-test-1:
-	@docker exec -u $(OWN_USER) -it node-$(MAIN_DOMAIN) bash || true
 	@docker stop node-$(MAIN_DOMAIN) || true && docker rm node-$(MAIN_DOMAIN) || true
 
 

@@ -8,7 +8,7 @@ services:
       args:
         UBUNTU_VERSION: ${UBUNTU_VERSION}
         COMMIT: ${COMMIT}
-    image: dimmsd/${NODE_IMAGE}:${UBUNTU_VERSION}
+    image: ${NODE_IMAGE}:${UBUNTU_VERSION}
     container_name: node-${MAIN_DOMAIN}
     environment:
       - MAIN_DOMAIN=${MAIN_DOMAIN}
@@ -16,7 +16,6 @@ services:
       - OWN_USER=${OWN_USER}
       - OWN_GID=${OWN_GID}
       - OWN_UID=${OWN_UID}
-      - NODE_SERVICE="1"
     volumes:
       - ./www:/var/www
       - ./utils:/tmp/utils

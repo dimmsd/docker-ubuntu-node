@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dimmsd/docker-ubuntu-node.svg?branch=master)](https://travis-ci.org/dimmsd/docker-ubuntu-node)
 ## Nodejs docker image
 
 Ubuntu + nvm + nodejs
@@ -27,6 +28,7 @@ install-demo			Install node modules for demo application
 $ git clone git://github.com/dimmsd/docker-ubuntu-node.git
 $ cd docker-ubuntu-node
 $ cp .env.example .env
+$ make build
 $ make install-node
 $ make install-demo
 $ make up
