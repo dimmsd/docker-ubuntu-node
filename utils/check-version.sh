@@ -8,7 +8,6 @@ LAST_ACTUAL_COMMIT=$(echo $LAST_FULL_COMMIT | head -c 8)
 LAST_COMMIT=$(docker exec -it $2 /tmp/utils/show-version.sh)
 #echo "!"$LAST_COMMIT"!"
 
-
 if [ "$LAST_COMMIT" = "$LAST_ACTUAL_COMMIT" ]
 then
     echo "Image $3 is actual"

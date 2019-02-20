@@ -30,7 +30,7 @@ help:
 	@echo "\tdown - down container"
 	@echo "\tlogs - show logs container"
 	@echo "\texec-node - attach to NODE container and start bash session"
-	@echo "\tcheck-version - Check version images"
+	@echo "\tcheck-version - Check version images (compare image for current container and dimmsd/$(NODE_IMAGE):$(UBUNTU_VERSION) image)"
 	@echo "\tinstall-node - Install nodejs"
 	@echo "\tinstall-demo - Install node modules for demo node application folder ./www/node"
 	@echo "\tcheck-demo - Execute for test curl (from container)"
