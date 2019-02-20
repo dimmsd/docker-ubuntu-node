@@ -22,6 +22,7 @@ then
     cp -f /tmp/user_template/.profile /home/$OWN_USER/
     cp -f /tmp/user_template/.bashrc /home/$OWN_USER/
     cp -f /tmp/user_template/.bash_logout /home/$OWN_USER/
+    chown -R ${OWN_USER}:${OWN_USER} /home/$OWN_USER/
 fi
 fi
 
