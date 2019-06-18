@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
-    sudo curl build-essential libssl-dev libpng-dev \
+    git sudo curl build-essential libssl-dev libpng-dev \
 # clean
     && apt-get -y autoremove \
     && apt-get clean \
