@@ -45,7 +45,7 @@ down:
 logs:
 	@docker logs node-$(MAIN_DOMAIN)
 exec-node:
-	@docker exec -u $(OWN_USER) -it node-$(MAIN_DOMAIN) bash
+	@docker exec -u $(OWN_USER) -it node-$(MAIN_DOMAIN) /tmp/utils/npm-set.bash
 check-version:
 	@./utils/check-version.sh docker-ubuntu-node node-$(MAIN_DOMAIN) dimmsd/ubuntu-node:${UBUNTU_VERSION}
 check-demo:
