@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
-    git sudo curl build-essential libssl-dev libpng-dev autoconf libtool automake python \
+    git sudo curl build-essential libssl-dev libpng-dev libjpeg-dev libtiff-dev libgif-dev autoconf libtool automake python \
 # clean
     && apt-get -y autoremove \
     && apt-get clean \
